@@ -1,33 +1,51 @@
 import styled from "styled-components"
-import Card from "../galeria/Card"
+import Imagen from "../galeria/Card"
+import BotonIcono from "../BotonIcono"
 
 const Overlay = styled.div`
-background: rgba(0,0,0,.7);
-position: fixed;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
+    background-color:rgba(0,0,0,.7);
+    position:fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
 `
-
 const DialogEstilizado = styled.dialog`
-position: absolute;
-top: 294px;
-/* width: 90%; */
+    position: absolute;
+    top: 294px;
+    background: transparent;
+    padding: 0;
+    border: 0;
+    width: 1156px;
+    display: flex;
+    justify-content: center;
+    form {
+        button {
+            position: relative;
+            top: 20px;
+            right: 60px;
+        }
+    }
 `
+const ModalZoom = ({ foto, cerrar, alternarFavorito }) => {
 
-const ModalZoom = ({foto}) => {
-  return <>
-    {foto && <>
-    <Overlay />
-      <DialogEstilizado open={!!foto}>
-      <Card foto={foto} expandida={true} />
-      {/* <form method="dialog">
-        <button>Ok</button>
-        </form> */}
-    </DialogEstilizado>
-    </>}
-  </>
+    return <>
+        {foto && <>
+            <Overlay />
+            <DialogEstilizado open={!!foto} onClose={cerrar}>
+                <Imagen foto={foto} expandida={true} alternarFavorito={alternarFavorito}/>
+                <form method="dialog">
+                    <BotonIcono formMethod="dialog">
+                        <img src="/iconos/cerrar.png" alt="Icono de cerrar" />
+                    </BotonIcono>
+                </form>
+            </DialogEstilizado>
+        </>}
+
+    </>
+
+
 }
 
 export default ModalZoom

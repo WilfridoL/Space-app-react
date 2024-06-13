@@ -36,6 +36,21 @@ flex-grow: 1;
 const App = () => {
   const [fotoDeGaleria, setFotoDeGaleria] = useState(fotos)
   const [fotoSeleccionada, setFotoSeleccionada] = useState(null)
+  const alternarFavorito = (fotos) => {
+    if(fotos.id === fotoSeleccionada?.id) {
+      setFotoSeleccionada({
+        ...fotoSeleccionada,
+        favorita: !fotos.favorita
+      })
+    }
+
+    setFotoDeGaleria(fotoDeGaleria.map(fotoDeGaleria => {
+      return {
+        ...fotoDeGaleria,
+        favorita: fotoDeGaleria.id === fotos.id ? !fotos.favorita : fotoDeGaleria.favorita
+      }
+    }))
+  }
   return (
     <>
       <FondoGradiente>
@@ -51,11 +66,15 @@ const App = () => {
               />
               <Galeria 
               seleccionarFoto={foto => setFotoSeleccionada(foto)} 
-              fotos={fotoDeGaleria}/>
+              fotos={fotoDeGaleria}
+              alternarFavorito={alternarFavorito}/>
             </ContenidoGaleria>
           </MainContainer>
         </AppContainer>
-        <ModalZoom foto={fotoSeleccionada}/>
+        <ModalZoom 
+        foto={fotoSeleccionada} 
+        cerrar={() => setFotoSeleccionada(null)} 
+        alternarFavorito={alternarFavorito}/>
       </FondoGradiente>
     </>
   )

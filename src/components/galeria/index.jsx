@@ -19,7 +19,7 @@ flex-wrap: wrap;
 gap: 24px;
 `
 
-const Galeria = ({ fotos = [], seleccionarFoto }) => {
+const Galeria = ({ fotos = [], seleccionarFoto, alternarFavorito }) => {
   return (<>
     <Tags />
     <GaleriaContainer>
@@ -29,7 +29,8 @@ const Galeria = ({ fotos = [], seleccionarFoto }) => {
           {fotos.map(foto => <Card
             solicitarZoom={seleccionarFoto}
             key={foto.id}
-            foto={foto} />)
+            foto={foto} 
+            alternarFavorito={alternarFavorito}/>)
           }
         </CardContenedor>
       </SeccionFluida>
