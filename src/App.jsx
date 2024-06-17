@@ -6,7 +6,7 @@ import Banner from "./components/Banner";
 import imgBanner from './assets/banner.png'
 import Galeria from "./components/galeria";
 import fotos from './fotos.json'; 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalZoom from "./components/ModalZoom";
 
 const FondoGradiente = styled.div`
@@ -36,6 +36,8 @@ flex-grow: 1;
 const App = () => {
   const [fotoDeGaleria, setFotoDeGaleria] = useState(fotos)
   const [fotoSeleccionada, setFotoSeleccionada] = useState(null)
+  const [search, setSearch] = useState("")
+  console.log(`busqueda actual ${search}`);
   const alternarFavorito = (fotos) => {
     if(fotos.id === fotoSeleccionada?.id) {
       setFotoSeleccionada({
@@ -51,12 +53,17 @@ const App = () => {
       }
     }))
   }
+
+  useEffect(() => {
+    console.log('Creando el componente de la aplicacion');
+  
+  }, )
   return (
     <>
       <FondoGradiente>
         <GobalStyle />
         <AppContainer>
-          <Header />
+          <Header setSearch={setSearch}/>
           <MainContainer>
             <BarraLateral />
             <ContenidoGaleria>
@@ -67,7 +74,8 @@ const App = () => {
               <Galeria 
               seleccionarFoto={foto => setFotoSeleccionada(foto)} 
               fotos={fotoDeGaleria}
-              alternarFavorito={alternarFavorito}/>
+              alternarFavorito={alternarFavorito}
+              search={search}/>
             </ContenidoGaleria>
           </MainContainer>
         </AppContainer>
@@ -81,3 +89,6 @@ const App = () => {
 }
 
 export default App
+
+// Agregar funcionalidad de filtros osaea añadir filtros a los tags para filtrar las Cards
+// Agregar la funcionalidad de un buscador con el input que esta en el header

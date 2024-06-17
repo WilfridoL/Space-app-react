@@ -13,10 +13,10 @@ const HeaderSytle = styled.header`
   }
 `
 
-const Header = () => {
+const Header = ({setSearch}) => {
   return <HeaderSytle>
     <img src="imagenes/logo.png" alt="Logo de Space App"/>
-    <Input/>
+    <Input setSearch={setSearch}/>
   </HeaderSytle>
 }
 
