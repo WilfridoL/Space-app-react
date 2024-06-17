@@ -5,9 +5,10 @@ import BarraLateral from "./components/SideBar";
 import Banner from "./components/Banner";
 import imgBanner from './assets/banner.png'
 import Galeria from "./components/galeria";
-import fotos from './fotos.json'; 
 import { useEffect, useState } from "react";
 import ModalZoom from "./components/ModalZoom";
+import Cargando from "./components/Cargando";
+import GlobalContexProvider from "./context/GlobalContex";
 
 const FondoGradiente = styled.div`
   background: linear-gradient(175deg, #041833 4.16%, #04244F 48%, #154580 96.76%);  
@@ -34,55 +35,29 @@ flex-grow: 1;
 `
 
 const App = () => {
-  const [fotoDeGaleria, setFotoDeGaleria] = useState(fotos)
-  const [fotoSeleccionada, setFotoSeleccionada] = useState(null)
-  const [search, setSearch] = useState("")
-  console.log(`busqueda actual ${search}`);
-  const alternarFavorito = (fotos) => {
-    if(fotos.id === fotoSeleccionada?.id) {
-      setFotoSeleccionada({
-        ...fotoSeleccionada,
-        favorita: !fotos.favorita
-      })
-    }
-
-    setFotoDeGaleria(fotoDeGaleria.map(fotoDeGaleria => {
-      return {
-        ...fotoDeGaleria,
-        favorita: fotoDeGaleria.id === fotos.id ? !fotos.favorita : fotoDeGaleria.favorita
-      }
-    }))
-  }
-
-  useEffect(() => {
-    console.log('Creando el componente de la aplicacion');
-  
-  }, )
   return (
     <>
       <FondoGradiente>
         <GobalStyle />
-        <AppContainer>
-          <Header setSearch={setSearch}/>
-          <MainContainer>
-            <BarraLateral />
-            <ContenidoGaleria>
-              <Banner 
-              texto='La galería más completa del espacio' 
-              backgroundImg={imgBanner} 
-              />
-              <Galeria 
-              seleccionarFoto={foto => setFotoSeleccionada(foto)} 
-              fotos={fotoDeGaleria}
-              alternarFavorito={alternarFavorito}
-              search={search}/>
-            </ContenidoGaleria>
-          </MainContainer>
-        </AppContainer>
-        <ModalZoom 
-        foto={fotoSeleccionada} 
-        cerrar={() => setFotoSeleccionada(null)} 
-        alternarFavorito={alternarFavorito}/>
+        <GlobalContexProvider>
+          <AppContainer>
+            <Header/>
+
+            <MainContainer>
+              <BarraLateral />
+              <ContenidoGaleria>
+                <Banner
+                  texto='La galería más completa del espacio'
+                  backgroundImg={imgBanner}
+                />
+                <Galeria />
+              </ContenidoGaleria>
+            </MainContainer>
+
+          </AppContainer>
+          <ModalZoom />
+        </GlobalContexProvider>
+
       </FondoGradiente>
     </>
   )

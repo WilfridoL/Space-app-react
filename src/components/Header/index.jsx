@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import Input from "../Input"
+import { useContext } from "react"
+import { GlobalConstex } from "../../context/GlobalContex"
 
 const HeaderSytle = styled.header`
   padding: 60px 24px;
@@ -13,7 +15,8 @@ const HeaderSytle = styled.header`
   }
 `
 
-const Header = ({setSearch}) => {
+const Header = () => {
+  const {setSearch} = useContext(GlobalConstex)
   return <HeaderSytle>
     <img src="imagenes/logo.png" alt="Logo de Space App"/>
     <Input setSearch={setSearch}/>

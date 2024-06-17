@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import Titulo from "../../Titulo/Titulo"
-import fotosPopulares from './../../../fotos-populares.json'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const ContaninerPopularCard = styled.div`
   display: flex;
@@ -28,7 +27,16 @@ const Btn = styled.button`
 `
 
 const Populares = () => {
-  const [fotoPopular, setFotoPopular] = useState(fotosPopulares)
+  const [fotoPopular, setFotoPopular] = useState([])
+  useEffect(() => {
+    const data = async () => {
+      const res = await fetch('http://localhost:3000/fotos-populares')
+      const db = await res.json()
+      setFotoPopular([...db])
+    }
+    data()
+  }, [])
+  
   return <ContaninerPopularCard>
   <Titulo $align='center'>Populares</Titulo>
   <section>

@@ -3,7 +3,9 @@ import Titulo from "../Titulo/Titulo"
 import Populares from "./Populares"
 import Tags from "./Tags"
 import Card from "./Card"
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
+import Cargando from "../Cargando"
+import { GlobalConstex } from "../../context/GlobalContex"
 
 const GaleriaContainer = styled.div`
 display: flex;
@@ -20,21 +22,22 @@ flex-wrap: wrap;
 gap: 24px;
 `
 
-const Galeria = ({ fotos = [], seleccionarFoto, alternarFavorito, search }) => {
-  
-  return (<>
+const Galeria = () => {
+  const {fotoDeGaleria, search, seleccionarFoto, alternarFavorito, setFotoSeleccionada} = useContext(GlobalConstex)
+  // console.log(contex);
+  return (fotoDeGaleria.length == 0 ? <Cargando /> :<>
     <Tags />
     <GaleriaContainer>
       <SeccionFluida>
         <Titulo>Navegue por la galeria</Titulo>
         <CardContenedor>
-          {fotos.filter(event => {
+          {fotoDeGaleria.filter(event => {
             return search == '' || event.titulo.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, "").includes(search.toLocaleLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, ""))
           }).map(foto => <Card
-            solicitarZoom={seleccionarFoto}
+            alternarFavorito={alternarFavorito}
+            solicitarZoom={foto => setFotoSeleccionada(foto)}
             key={foto.id}
-            foto={foto} 
-            alternarFavorito={alternarFavorito}/>)
+            foto={foto} />)
           }
         </CardContenedor>
       </SeccionFluida>
