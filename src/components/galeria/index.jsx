@@ -32,9 +32,9 @@ const Galeria = () => {
         <CardContenedor>
           {state.fotoDeGaleria.filter(event => {
             return state.search == '' || event.titulo.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, "").includes(state.search.toLocaleLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, ""))
-          }).map(foto => <Card
-            key={foto.id}
-            foto={foto} />)
+          }).map(fotos => <Card
+            key={fotos.id}
+            foto={fotos} />)
           }
         </CardContenedor>
       </SeccionFluida>

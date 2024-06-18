@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import ModalZoom from "./components/ModalZoom";
 import Cargando from "./components/Cargando";
 import GlobalContexProvider from "./context/GlobalContex";
+import Footer from "./components/Footer";
 
 const FondoGradiente = styled.div`
   background: linear-gradient(175deg, #041833 4.16%, #04244F 48%, #154580 96.76%);  
@@ -53,7 +54,7 @@ const App = () => {
                 <Galeria />
               </ContenidoGaleria>
             </MainContainer>
-
+            <Footer />
           </AppContainer>
           <ModalZoom />
         </GlobalContexProvider>

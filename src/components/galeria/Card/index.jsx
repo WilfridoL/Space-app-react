@@ -2,6 +2,7 @@ import { styled } from "styled-components"
 import BotonIcono from "../../BotonIcono"
 import { useContext } from "react"
 import { GlobalConstex } from "../../../context/GlobalContex"
+import useFotoModal from "../../../hook/useFotoModal"
 const Figure = styled.figure`
     width: ${props => props.$expandida ? '90%' : '380px'};
     max-width: 100%;
@@ -38,8 +39,10 @@ const Pie = styled.footer`
 `
 
 const Card = ({ foto, expandida}) => {
-    const iconoFavorito = foto.favorita ? "/iconos/favorito-activo.png" : "/iconos/favorito.png"
-    const {dispatch} = useContext(GlobalConstex)
+    const { abrirModal } = useFotoModal();
+    const { dispatch } = useContext(GlobalConstex);
+    const iconoFavorito = foto.favorita ? "/iconos/favorito-activo.png" : "/iconos/favorito.png";
+
     return (
         <Figure $expandida={expandida} id={`foto-${foto.id}`}>
             <img src={foto.path} alt={foto.alt} />
@@ -47,12 +50,12 @@ const Card = ({ foto, expandida}) => {
                 <h3>{foto.titulo}</h3>
                 <Pie>
                     <h4>{foto.fuente}</h4>
-                    <BotonIcono>
-                        <img src={iconoFavorito} alt="Icone de favorito" onClick={() => dispatch({type:'ALTERNAR_FAVORITO', payload:foto})}/>
+                    <BotonIcono onClick={() => dispatch({ type: 'ALTERNAR_FAVORITO', payload: foto })}>
+                        <img src={iconoFavorito} alt="Icone de favorito" />
                     </BotonIcono>
-                    {!expandida && <BotonIcono aria-hidden={expandida} onClick={()=> dispatch({type:'SET_FOTOSELECCIONADA', payload:foto})}>
-                    <img src="/iconos/expandir.png" alt="Icono de expandir" />
-                </BotonIcono>}
+                    {!expandida && <BotonIcono aria-hidden={expandida} onClick={() => abrirModal(foto)}>
+                        <img src="/iconos/expandir.png" alt="Icono de expandir" />
+                    </BotonIcono>}
                 </Pie>
             </figcaption>
         </Figure>)

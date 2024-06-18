@@ -5,7 +5,8 @@ export const GlobalConstex = createContext()
 const initialState = {
   search: "",
   fotoDeGaleria: [],
-  fotoSeleccionada: null
+  fotoSeleccionada: null,
+  modalAbierto: false
 }
 
 const reducer = (state, action) => {
@@ -13,9 +14,10 @@ const reducer = (state, action) => {
     case 'SET_SEARCH': 
       return {...state, search: action.payload};
     case 'SET_FOTODEGALERIA':
-      return {...state, fotoDeGaleria: action.payload};
+      return {...state, 
+        fotoDeGaleria: action.payload};
     case 'SET_FOTOSELECCIONADA':
-      return {...state, fotoSeleccionada: action.payload};
+      return {...state, fotoSeleccionada: action.payload,modalAbierto: action.payload != null ? true : false};
     case 'ALTERNAR_FAVORITO':
       const fotosDeGaleria = state.fotoDeGaleria.map(fotoDeGaleria => {
         return {
