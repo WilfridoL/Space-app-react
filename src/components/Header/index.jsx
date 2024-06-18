@@ -16,10 +16,9 @@ const HeaderSytle = styled.header`
 `
 
 const Header = () => {
-  const {setSearch} = useContext(GlobalConstex)
   return <HeaderSytle>
     <img src="imagenes/logo.png" alt="Logo de Space App"/>
-    <Input setSearch={setSearch}/>
+    <Input />
   </HeaderSytle>
 }
 

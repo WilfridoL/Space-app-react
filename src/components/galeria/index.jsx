@@ -23,19 +23,16 @@ gap: 24px;
 `
 
 const Galeria = () => {
-  const {fotoDeGaleria, search, seleccionarFoto, alternarFavorito, setFotoSeleccionada} = useContext(GlobalConstex)
-  // console.log(contex);
-  return (fotoDeGaleria.length == 0 ? <Cargando /> :<>
+  const {state, dispatch} = useContext(GlobalConstex)
+  return (state.fotoDeGaleria.length == 0 ? <Cargando /> :<>
     <Tags />
     <GaleriaContainer>
       <SeccionFluida>
         <Titulo>Navegue por la galeria</Titulo>
         <CardContenedor>
-          {fotoDeGaleria.filter(event => {
-            return search == '' || event.titulo.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, "").includes(search.toLocaleLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, ""))
+          {state.fotoDeGaleria.filter(event => {
+            return state.search == '' || event.titulo.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, "").includes(state.search.toLocaleLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, ""))
           }).map(foto => <Card
-            alternarFavorito={alternarFavorito}
-            solicitarZoom={foto => setFotoSeleccionada(foto)}
             key={foto.id}
             foto={foto} />)
           }

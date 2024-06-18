@@ -41,7 +41,7 @@ const App = () => {
         <GobalStyle />
         <GlobalContexProvider>
           <AppContainer>
-            <Header/>
+            <Header />
 
             <MainContainer>
               <BarraLateral />
